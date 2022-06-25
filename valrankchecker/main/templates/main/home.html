@@ -3,7 +3,8 @@
 
 {% block content %}
     <h2>Valorant Ranked Checker</h2>
-    <form method="post" action="/home/">
+    <form method="post" action="">
+        {% csrf_token %}
         {{form}}
         <button type="submit" name="search">
             Get rank
