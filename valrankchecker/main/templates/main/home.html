@@ -3,12 +3,16 @@
 
 {% block content %}
     <h2>Valorant Ranked Checker</h2>
-    <form method="post" action="">
+    <form method="POST" action="">
         {% csrf_token %}
         {{form}}
         <button type="submit" name="search">
             Get rank
         </button>
     </form>
-    <p><strong>{{userid}} - {{mmr}}</strong></p>
+    {% if userid != "puuid not found" %}
+        <p><strong>ppuid found - {{userid}}</strong></p>
+    {% else %}
+        <p><strong>{{userid}}</strong></p>
+    {% endif %}
 {% endblock %}
