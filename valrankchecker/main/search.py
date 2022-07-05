@@ -1,22 +1,16 @@
-import valo_api
+from valo_api import get_mmr_details_by_name_v1
+from valo_api.exceptions.valo_api_exception import ValoAPIException
 
 
 def search(request):
-    name = request.POST.get('name', 'novalue')
-    if name != 'novalue':
-        print('--------------------------------')
-        print(name)
-        print('--------------------------------')
-
-        data = valo_api.get_mmr_details_by_name_v1('na', name, 'NA1')
-        data = data.__dict__
-        try:
-            print(data)
-            if data:
-                print('-------------------this is data-------------')
-                print(data)
-                print('-------------------this is data-------------')
-                print(name, 'has come here, means 200')
-                return data.get(('currenttierpatched'))
-        except Exception as e:
-            print(e)
+    id = request.POST.get('id', 'novalue')
+    if id == 'novalue':
+        return
+    name, tag = id.split("#")
+    try:
+        print(f"{name=}; {tag=}")
+        data = get_mmr_details_by_name_v1('na', name, tag)
+        print(data)
+        return data.currenttierpatched, data.ranking_in_tier
+    except ValoAPIException as e:
+        print(e)
