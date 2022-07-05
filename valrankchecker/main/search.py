@@ -1,4 +1,5 @@
-import requests
+import valo_api
+
 
 def search(request):
     name = request.POST.get('name', 'novalue')
@@ -7,20 +8,15 @@ def search(request):
         print(name)
         print('--------------------------------')
 
-        data = requests.get(
-            f"https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/{name}/NA1?api_key=RGAPI-f585b751-1b3b-409a-bb9c-6960f69cfa2d")
-        print(data.url)
+        data = valo_api.get_mmr_details_by_name_v1('na', name, 'NA1')
+        data = data.__dict__
         try:
-
-            puuid = data.json()['puuid']
-
-            if puuid:
-                print('-------------------this is ppuid-------------')
-                print(puuid)
-                print('-------------------this is ppuid-------------')
+            print(data)
+            if data:
+                print('-------------------this is data-------------')
+                print(data)
+                print('-------------------this is data-------------')
                 print(name, 'has come here, means 200')
-                return puuid
-        except:
-            print(name, 'has come here, means not found or forbidden')
-
-            return 'puuid not found'
+                return data.get(('currenttierpatched'))
+        except Exception as e:
+            print(e)

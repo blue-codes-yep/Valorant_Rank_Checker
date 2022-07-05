@@ -10,9 +10,9 @@
             Get rank
         </button>
     </form>
-    {% if userid != "puuid not found" %}
-        <p><strong>ppuid found - {{userid}}</strong></p>
+    {% if rank != "user not found" %}
+        <p><strong>rank - {{rank}}</strong></p>
     {% else %}
-        <p><strong>{{userid}}</strong></p>
+        <p><strong>{{rank}}</strong></p>
     {% endif %}
 {% endblock %}
